@@ -22,9 +22,7 @@ last_long = 0
 while (True):
     response = requests.request("GET", url, headers=headers)
 
-    response = requests.request("GET", url, headers=headers)
-
-    # print(json.dumps(response.json(), indent=2))
+    print(json.dumps(response.json(), indent=2))
 
     js = response.json()
     lat = js["lat"]
@@ -42,4 +40,20 @@ while (True):
         print("Just landed in: " + str(json.dumps(address)) + " at " +  file_time.strftime("%m %d %Y, %H:%M"))
 
     time.sleep(60*60)
+
+
+
+stack = [start]
+
+while stack:
+    curr = stack.pop()
+
+    if curr in vis:
+        continue
+
+    viss.add(curr)
+
+    for nei in curr.neighbors:
+        stack.append(nei)
+
 
